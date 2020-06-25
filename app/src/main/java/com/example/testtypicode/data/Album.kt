@@ -1,6 +1,6 @@
 package com.example.testtypicode.data
 
-data class User(
+data class Album(
     val id: Int,
-    val name: String
+    val userId: Int
 )

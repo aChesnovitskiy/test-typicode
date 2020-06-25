@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_background">
 
     <TextView
         android:id="@+id/tv_user_name"
@@ -28,7 +29,7 @@
         android:layout_marginBottom="@dimen/spacing_small_10"
         android:contentDescription="@string/arrow"
         android:src="@drawable/ic_arrow_forward"
-        android:tint="@color/colorAccent"
+        android:tint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
