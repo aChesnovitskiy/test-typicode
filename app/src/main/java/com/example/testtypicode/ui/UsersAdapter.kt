@@ -10,7 +10,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_user.*
 
 class UsersAdapter(val listener: (User) -> Unit) :
-    RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
+    RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
     private var users = listOf<User>()
 
     fun updateUsers(users: List<User>) {
@@ -18,8 +18,8 @@ class UsersAdapter(val listener: (User) -> Unit) :
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder =
-        UsersViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder =
+        UserViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_user, parent, false
             )
@@ -27,11 +27,10 @@ class UsersAdapter(val listener: (User) -> Unit) :
 
     override fun getItemCount(): Int = users.size
 
-    override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) =
         holder.bind(users[position], listener)
-    }
 
-    inner class UsersViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView),
+    inner class UserViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView),
         LayoutContainer {
         override val containerView: View?
             get() = itemView
