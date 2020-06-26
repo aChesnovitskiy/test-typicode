@@ -1,18 +1,18 @@
-package com.example.testtypicode.ui
+package com.example.testtypicode.ui.users
 
 import android.app.Application
+import android.content.Intent
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testtypicode.R
 import com.example.testtypicode.extensions.dpToPx
-import com.example.testtypicode.viewmodels.UsersViewModel
+import com.example.testtypicode.ui.photos.PhotosActivity
+import com.example.testtypicode.viewmodels.users.UsersViewModel
 import kotlinx.android.synthetic.main.activity_users.*
 
 class UsersActivity : AppCompatActivity() {
@@ -25,15 +25,17 @@ class UsersActivity : AppCompatActivity() {
 
         setupRecyclerView()
         setupViewModel()
+
+        usersViewModel.loadUsers()
     }
 
     private fun setupRecyclerView() {
-        usersAdapter = UsersAdapter {
-            Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+        usersAdapter = UsersAdapter { user ->
+            val intent = Intent(this@UsersActivity, PhotosActivity::class.java)
+            intent.putExtra("userId", user.id)
+            startActivity(intent)
         }
 
-        // TODO
-        // Draw divider
         val customDivider = InsetDrawable(
             resources.getDrawable(R.drawable.divider, this.theme),
             this.dpToPx(20).toInt(),
@@ -58,7 +60,5 @@ class UsersActivity : AppCompatActivity() {
 
         usersViewModel.getUsers()
             .observe(this, Observer { usersAdapter.updateUsers(it) })
-
-        usersViewModel.loadUsers()
     }
 }

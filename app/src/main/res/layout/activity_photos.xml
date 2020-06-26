@@ -5,15 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".ui.users.UsersActivity">
+    tools:context=".ui.photos.PhotosActivity">
+
+    <!-- TODO button home -->
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/usersAppbar"
+        android:id="@+id/photosAppbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/usersToolbar"
+            android:id="@+id/photosToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
@@ -22,16 +24,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/users" />
+                android:text="@string/photos" />
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_users"
+        android:id="@+id/rv_photos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/spacing_normal_20"
+        android:layout_marginEnd="@dimen/spacing_normal_20"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,9 +1,9 @@
-package com.example.testtypicode.viewmodels
+package com.example.testtypicode.viewmodels.users
 
 import android.app.Application
 import androidx.lifecycle.*
 import com.achesnovitskiy.empoyees.api.ApiFactory
-import com.example.testtypicode.data.User
+import com.example.testtypicode.data.pojo.User
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -40,7 +40,9 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
     class ViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(UsersViewModel::class.java)) {
-                return UsersViewModel(application) as T
+                return UsersViewModel(
+                    application
+                ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Test Typicode</string>
     <string name="users">Users</string>
+    <string name="photos">Photos</string>
     <string name="arrow">Arrow</string>
+    <string name="photo_image">Photo image</string>
 </resources>

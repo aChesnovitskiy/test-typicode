@@ -1,4 +1,4 @@
-package com.example.testtypicode.data
+package com.example.testtypicode.data.pojo
 
 data class Album(
     val id: Int,
