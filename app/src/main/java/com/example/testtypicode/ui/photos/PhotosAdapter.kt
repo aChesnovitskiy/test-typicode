@@ -14,7 +14,6 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_photo.*
 import java.io.InputStream
 
-
 class PhotosAdapter() :
     RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
     private var photos = listOf<Photo>()
@@ -43,7 +42,7 @@ class PhotosAdapter() :
 
         fun bind(photo: Photo) {
             tv_photo_title.text = photo.title
-            iv_photo_image.setImageBitmap()
+//            iv_photo_image.setImageBitmap()
         }
     }
 
@@ -51,37 +50,37 @@ class PhotosAdapter() :
     // https://stackoverflow.com/questions/18210700/best-method-to-download-image-from-url-in-android
     // https://www.tutorialspoint.com/how-to-download-and-save-an-image-from-a-given-url-in-android
     // https://medium.com/@crossphd/android-image-loading-from-a-string-url-6c8290b82c5e
-    private class DownloadImage : AsyncTask<String?, Any?, Any?>() {
-        override fun onPreExecute() {
-            super.onPreExecute()
-            mProgressDialog = ProgressDialog(this@MainActivity)
-            mProgressDialog.setTitle("Download Image Tutorial")
-            mProgressDialog.setMessage("Loading...")
-            mProgressDialog.setIndeterminate(false)
-            mProgressDialog.show()
-        }
-
-        override fun doInBackground(vararg URL: String?): Bitmap? {
-            val imageURL = URL[0]
-            var bitmap: Bitmap? = null
-            try {
-                val input: InputStream = java.net.URL(imageURL).openStream()
-                bitmap = BitmapFactory.decodeStream(input)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            return bitmap
-        }
-
-        override fun onPostExecute(result: Any?) {
-            super.onPostExecute(result)
-        }
-
-        protected fun onPostExecute(result: Bitmap?) {
-            // Set the bitmap into ImageView
-            image.setImageBitmap(result)
-            // Close progressdialog
-            mProgressDialog.dismiss()
-        }
-    }
+//    private class DownloadImage : AsyncTask<String?, Any?, Any?>() {
+//        override fun onPreExecute() {
+//            super.onPreExecute()
+//            mProgressDialog = ProgressDialog(this@MainActivity)
+//            mProgressDialog.setTitle("Download Image Tutorial")
+//            mProgressDialog.setMessage("Loading...")
+//            mProgressDialog.setIndeterminate(false)
+//            mProgressDialog.show()
+//        }
+//
+//        override fun doInBackground(vararg URL: String?): Bitmap? {
+//            val imageURL = URL[0]
+//            var bitmap: Bitmap? = null
+//            try {
+//                val input: InputStream = java.net.URL(imageURL).openStream()
+//                bitmap = BitmapFactory.decodeStream(input)
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//            return bitmap
+//        }
+//
+//        override fun onPostExecute(result: Any?) {
+//            super.onPostExecute(result)
+//        }
+//
+//        protected fun onPostExecute(result: Bitmap?) {
+//            // Set the bitmap into ImageView
+//            image.setImageBitmap(result)
+//            // Close progressdialog
+//            mProgressDialog.dismiss()
+//        }
+//    }
 }

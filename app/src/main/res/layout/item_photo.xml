@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/spacing_normal_20">
+    android:layout_marginTop="@dimen/spacing_small_10"
+    android:layout_marginBottom="@dimen/spacing_small_10"
+    app:cardCornerRadius="5dp">
 
-    <!-- TODO shadow and corners -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,11 +17,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/photo_image"
+            android:src="@drawable/ic_arrow_forward"
             app:layout_constraintBottom_toTopOf="@+id/tv_photo_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_arrow_forward" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_photo_title"

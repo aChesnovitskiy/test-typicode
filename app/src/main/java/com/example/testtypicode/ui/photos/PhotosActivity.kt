@@ -1,15 +1,12 @@
 package com.example.testtypicode.ui.photos
 
 import android.app.Application
-import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testtypicode.R
-import com.example.testtypicode.extensions.dpToPx
 import com.example.testtypicode.viewmodels.photos.PhotosViewModel
 import kotlinx.android.synthetic.main.activity_photos.*
 
@@ -22,11 +19,14 @@ class PhotosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photos)
 
-        userId = getUserIdFromIntent()
+        tv_back_to_users.setOnClickListener {
+            finish()
+        }
 
         setupRecyclerView()
         setupViewModel()
 
+        userId = getUserIdFromIntent()
         photosViewModel.loadPhotos(userId)
     }
 

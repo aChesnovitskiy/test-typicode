@@ -8,12 +8,12 @@
     tools:context=".ui.users.UsersActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/usersAppbar"
+        android:id="@+id/appbar_users"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/usersToolbar"
+            android:id="@+id/toolbar_users"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
