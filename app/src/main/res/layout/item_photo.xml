@@ -14,10 +14,21 @@
 
         <ImageView
             android:id="@+id/iv_photo_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/photo_image"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/tv_photo_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/pb_photo_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/photo_image"
-            android:src="@drawable/ic_arrow_forward"
+            android:layout_marginTop="@dimen/spacing_small_10"
+            android:layout_marginBottom="@dimen/spacing_small_10"
             app:layout_constraintBottom_toTopOf="@+id/tv_photo_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +43,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_photo_image"
             tools:text="hello hello hello hello hello hello hello hello hello hello hello hello hello" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,8 +22,11 @@
                 style="@style/AppFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:drawableStart="@drawable/ic_arrow_back"
                 android:drawableTint="@color/colorAccent"
+                android:focusable="true"
                 android:text="@string/users"
                 android:textColor="@color/colorAccent" />
 
