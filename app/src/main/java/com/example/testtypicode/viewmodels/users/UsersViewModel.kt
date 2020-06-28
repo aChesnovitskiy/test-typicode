@@ -2,38 +2,18 @@ package com.example.testtypicode.viewmodels.users
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.achesnovitskiy.empoyees.api.ApiFactory
 import com.example.testtypicode.data.pojo.User
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import com.example.testtypicode.repositories.Repository
 
 class UsersViewModel(application: Application) : AndroidViewModel(application) {
     private val users = MutableLiveData<List<User>>(listOf())
-    private lateinit var disposable: Disposable
 
     fun getUsers() : LiveData<List<User>> = users
 
     fun loadUsers() {
-        val apiFactory = ApiFactory
-        val apiService = apiFactory.getApiService()
-
-        disposable = apiService.getUsers()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { result ->
-                    users.value = result
-                },
-                { error ->
-                    error(error)
-                }
-            )
-    }
-
-    override fun onCleared() {
-        disposable.dispose()
-        super.onCleared()
+        Repository.loadUsersFromApi {
+            users.value = it
+        }
     }
 
     @Suppress("UNCHECKED_CAST")

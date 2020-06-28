@@ -3,6 +3,7 @@ package com.example.testtypicode.ui.users
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtypicode.R
 import com.example.testtypicode.data.pojo.User
@@ -13,9 +14,20 @@ class UsersAdapter(val listener: (User) -> Unit) :
     RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
     private var users = listOf<User>()
 
-    fun updateUsers(users: List<User>) {
-        this.users = users
-        notifyDataSetChanged()
+    fun updateUsers(data: List<User>) {
+        val diffCallback = object : DiffUtil.Callback() {
+            override fun areItemsTheSame(oldPos: Int, newPos: Int) =
+                users[oldPos].id == data[newPos].id
+
+            override fun areContentsTheSame(oldPos: Int, newPos: Int) =
+                users[oldPos] == data[newPos]
+
+            override fun getOldListSize() = users.size
+            override fun getNewListSize() = data.size
+        }
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        users = data
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder =

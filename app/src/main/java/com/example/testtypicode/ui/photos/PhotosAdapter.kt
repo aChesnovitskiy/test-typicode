@@ -7,6 +7,7 @@ import android.os.AsyncTask
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtypicode.R
 import com.example.testtypicode.data.pojo.Photo
@@ -18,9 +19,20 @@ class PhotosAdapter() :
     RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
     private var photos = listOf<Photo>()
 
-    fun updatePhotos(photos: List<Photo>) {
-        this.photos = photos
-        notifyDataSetChanged()
+    fun updatePhotos(data: List<Photo>) {
+        val diffCallback = object : DiffUtil.Callback() {
+            override fun areItemsTheSame(oldPos: Int, newPos: Int) =
+                photos[oldPos].id == data[newPos].id
+
+            override fun areContentsTheSame(oldPos: Int, newPos: Int) =
+                photos[oldPos] == data[newPos]
+
+            override fun getOldListSize() = photos.size
+            override fun getNewListSize() = data.size
+        }
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        photos = data
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder =
@@ -41,12 +53,12 @@ class PhotosAdapter() :
             get() = itemView
 
         fun bind(photo: Photo) {
-            tv_photo_title.text = photo.title
+            tv_photo_title.text = photo.id.toString()
 //            iv_photo_image.setImageBitmap()
         }
     }
 
-    // https://www.tutorialspoint.com/how-to-download-image-from-url-in-android
+    // TODO https://www.tutorialspoint.com/how-to-download-image-from-url-in-android
     // https://stackoverflow.com/questions/18210700/best-method-to-download-image-from-url-in-android
     // https://www.tutorialspoint.com/how-to-download-and-save-an-image-from-a-given-url-in-android
     // https://medium.com/@crossphd/android-image-loading-from-a-string-url-6c8290b82c5e

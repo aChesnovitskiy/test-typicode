@@ -5,11 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "photos")
-data class PhotoItem(
+data class PhotoImage(
     @PrimaryKey
     val id: Int,
-    val albumId: Int,
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     var image: ByteArray? = null
 )
-// https://stackoverflow.com/questions/46337519/how-insert-image-in-room-persistence-library
+// TODO https://stackoverflow.com/questions/46337519/how-insert-image-in-room-persistence-library
