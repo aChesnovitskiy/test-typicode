@@ -1,9 +1,6 @@
 package com.example.testtypicode.ui.photos
 
-import android.app.ProgressDialog
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.AsyncTask
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtypicode.R
 import com.example.testtypicode.data.pojo.Photo
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_photo.*
-import java.io.InputStream
+import java.lang.Exception
 
 class PhotosAdapter() :
     RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
@@ -53,8 +52,24 @@ class PhotosAdapter() :
             get() = itemView
 
         fun bind(photo: Photo) {
-            tv_photo_title.text = photo.id.toString()
-//            iv_photo_image.setImageBitmap()
+            tv_photo_title.text = photo.title
+            Log.d("My_PhotosAdapter", photo.url)
+
+            Picasso.get()
+                .load(photo.url)
+                .into(
+                    iv_photo_image,
+                    object : Callback {
+                        override fun onSuccess() {
+                            pb_photo_loading.visibility = View.GONE
+                            iv_photo_image.visibility = View.VISIBLE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            e?.printStackTrace()
+                        }
+                    }
+                )
         }
     }
 
