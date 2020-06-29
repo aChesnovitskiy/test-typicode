@@ -61,4 +61,9 @@ class UsersActivity : AppCompatActivity() {
         usersViewModel.getUsers()
             .observe(this, Observer { usersAdapter.updateUsers(it) })
     }
+
+    override fun onDestroy() {
+        usersViewModel.disposeDisposables()
+        super.onDestroy()
+    }
 }

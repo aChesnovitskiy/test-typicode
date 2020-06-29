@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtypicode.R
+import com.example.testtypicode.cache.ImageLoader
 import com.example.testtypicode.data.pojo.Photo
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_photo.*
-import java.lang.Exception
 
 class PhotosAdapter() :
     RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
@@ -73,41 +73,11 @@ class PhotosAdapter() :
         }
     }
 
-    // TODO https://www.tutorialspoint.com/how-to-download-image-from-url-in-android
+    // https://androidexample.com/Download_Images_From_Web_And_Lazy_Load_In_ListView_-_Android_Example/index.php?view=article_discription&aid=112&aaid=134
+    // https://www.technotalkative.com/android-load-images-from-web-and-caching/
+    // https://eclipsesource.com/blogs/2012/07/31/loading-caching-and-displaying-images-in-android-part-1/
+    // https://www.tutorialspoint.com/how-to-download-image-from-url-in-android
     // https://stackoverflow.com/questions/18210700/best-method-to-download-image-from-url-in-android
     // https://www.tutorialspoint.com/how-to-download-and-save-an-image-from-a-given-url-in-android
     // https://medium.com/@crossphd/android-image-loading-from-a-string-url-6c8290b82c5e
-//    private class DownloadImage : AsyncTask<String?, Any?, Any?>() {
-//        override fun onPreExecute() {
-//            super.onPreExecute()
-//            mProgressDialog = ProgressDialog(this@MainActivity)
-//            mProgressDialog.setTitle("Download Image Tutorial")
-//            mProgressDialog.setMessage("Loading...")
-//            mProgressDialog.setIndeterminate(false)
-//            mProgressDialog.show()
-//        }
-//
-//        override fun doInBackground(vararg URL: String?): Bitmap? {
-//            val imageURL = URL[0]
-//            var bitmap: Bitmap? = null
-//            try {
-//                val input: InputStream = java.net.URL(imageURL).openStream()
-//                bitmap = BitmapFactory.decodeStream(input)
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//            return bitmap
-//        }
-//
-//        override fun onPostExecute(result: Any?) {
-//            super.onPostExecute(result)
-//        }
-//
-//        protected fun onPostExecute(result: Bitmap?) {
-//            // Set the bitmap into ImageView
-//            image.setImageBitmap(result)
-//            // Close progressdialog
-//            mProgressDialog.dismiss()
-//        }
-//    }
 }

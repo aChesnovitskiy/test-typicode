@@ -16,6 +16,10 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun disposeDisposables() {
+        Repository.disposeDisposables()
+    }
+
     @Suppress("UNCHECKED_CAST")
     class ViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

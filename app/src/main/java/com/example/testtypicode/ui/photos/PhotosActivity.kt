@@ -59,4 +59,9 @@ class PhotosActivity : AppCompatActivity() {
         photosViewModel.getPhotos()
             .observe(this, Observer { photosAdapter.updatePhotos(it) })
     }
+
+    override fun onDestroy() {
+        photosViewModel.disposeDisposables()
+        super.onDestroy()
+    }
 }
