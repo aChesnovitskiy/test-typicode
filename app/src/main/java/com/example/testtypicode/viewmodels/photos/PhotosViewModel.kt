@@ -14,60 +14,11 @@ class PhotosViewModel(application: Application) : AndroidViewModel(application) 
     fun getPhotos() : LiveData<List<Photo>> = photos
 
     fun loadPhotos(userId: Int) {
-//        Repository.loadAlbumsAndPhotosFromApi(userId) { photosFromApi ->
-//            photos.value = photosFromApi.sortedBy { it.id }
-//            Log.d("PhotosViewModel", "Photos size: ${photos.value!!.size}")
-//        }
+        Repository.loadAlbumsAndPhotosFromApi(userId) { photosFromApi ->
+            photos.value = photosFromApi.sortedBy { it.id }
+            Log.d("My_PhotosViewModel", "Photos size: ${photos.value!!.size}")
+        }
     }
-
-    // TODO
-//    private fun loadAlbumsFromAPI(userId: Int) {
-//        disposable = apiService.getAlbums(userId)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(
-//                { result ->
-//                    albums = result
-//                },
-//                { error ->
-//                    error(error)
-//                },
-//                {
-//                    val result = mutableListOf<Photo>()
-//
-//                    albums.forEach {
-//                        loadPhotosFromAPI(it.id)
-//                    }
-//                }
-//            )
-//    }
-//
-//    private fun loadPhotosFromAPI(albumId: Int) {
-//        val list = mutableListOf<Photo>()
-//
-//        disposable = apiService.getPhotos(albumId)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(
-//                { result ->
-//                    list.addAll(result)
-//                },
-//                { error ->
-//                    error(error)
-//                },
-//                {
-//                    photos.value = list
-//                    photos.value?.forEach {
-//                        Log.d("PhotosViewModel", "Photo: ${it.albumId} : ${it.title}")
-//                    }
-//                }
-//            )
-//    }
-//
-//    override fun onCleared() {
-//        disposable.dispose()
-//        super.onCleared()
-//    }
 
     @Suppress("UNCHECKED_CAST")
     class ViewModelFactory(private val application: Application) : ViewModelProvider.Factory {

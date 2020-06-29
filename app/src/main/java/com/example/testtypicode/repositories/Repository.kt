@@ -32,81 +32,41 @@ object Repository {
                 }
             )
     }
-
-    fun loadAlbumsFromApi(userId: Int, callback: (List<User>) -> Unit) {
-        val disposable = apiService.getUsers()
+    
+    fun loadAlbumsAndPhotosFromApi(userId: Int, callback: (List<Photo>) -> Unit) {
+        val disposable = loadAlbumsFromApiObservable(userId)
+            .flatMap { albums -> loadPhotosFromApiObservable(albums) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result ->
-                    users.addAll(result)
+                    result.forEach {
+                        Log.d("My_Repository", "Album: ${it.albumId}. Photo: ${it.id}")
+                    }
+                    photos.addAll(result)
                 },
                 { error ->
                     error.printStackTrace()
                 },
                 {
-                    callback(users)
+                    callback(photos)
                 }
             )
     }
 
-    // TODO
-//    fun loadAlbumsAndPhotosFromApi(userId: Int, callback: (List<Photo>) -> Unit) {
-//        val disposable = apiService.getAlbums(userId)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(
-//                { result ->
-//                    albums.addAll(result)
-//                },
-//                { error ->
-//                    error(error)
-//                },
-//                {
-//                    Observable.fromIterable(albums)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(
-//                            { album ->
-//                                apiService.getPhotos(album.id)
-//                                    .subscribeOn(Schedulers.io())
-//                                    .observeOn(AndroidSchedulers.mainThread())
-//                                    .subscribe(
-//                                        { result ->
-//                                            photos.addAll(result)
-//                                        },
-//                                        { error ->
-//                                            error.printStackTrace()
-//                                        }
-//                                    )
-//                            },
-//                            { error ->
-//                                error(error)
-//                            },
-//                            {
-//                                callback(photos)
-//                            }
-//                        )
-//                }
-//            )
-//    }
-//
-//    private fun loadPhotosFromApi(albumId: Int) {
-//        val disposable = apiService.getPhotos(albumId)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(
-//                { result ->
-//                    result.forEach {
-//                        Log.d("Repository", "Photo: ${it.albumId} : ${it.id}")
-//                    }
-//                    photos.addAll(result)
-//                },
-//                { error ->
-//                    error.printStackTrace()
-//                }
-//            )
-//    }
+    private fun loadAlbumsFromApiObservable(userId: Int) : Observable<List<Album>> =
+        Observable.just(userId)
+            .flatMap { id -> apiService.getAlbums(id) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    private fun loadPhotosFromApiObservable(albumsList: List<Album>) : Observable<List<Photo>> =
+        Observable.fromArray(albumsList)
+            .flatMapIterable { albums -> albums }
+            .flatMap { album -> apiService.getPhotos(album.id) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
 
     // TODO dispose combine disposable
 }
