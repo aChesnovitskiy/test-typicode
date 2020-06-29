@@ -3,8 +3,6 @@ package com.example.testtypicode.viewmodels.photos
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.achesnovitskiy.empoyees.api.ApiFactory
-import com.example.testtypicode.data.pojo.Album
 import com.example.testtypicode.data.pojo.Photo
 import com.example.testtypicode.repositories.Repository
 
@@ -14,7 +12,7 @@ class PhotosViewModel(application: Application) : AndroidViewModel(application) 
     fun getPhotos() : LiveData<List<Photo>> = photos
 
     fun loadPhotos(userId: Int) {
-        Repository.loadAlbumsAndPhotosFromApi(userId) { photosFromApi ->
+        Repository.loadPhotosFromApi(userId) { photosFromApi ->
             photos.value = photosFromApi.sortedBy { it.id }
             Log.d("My_PhotosViewModel", "Photos size: ${photos.value!!.size}")
         }

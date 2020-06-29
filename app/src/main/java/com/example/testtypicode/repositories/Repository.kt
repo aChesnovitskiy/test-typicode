@@ -13,8 +13,7 @@ object Repository {
     private val apiFactory = ApiFactory
     private val apiService = apiFactory.getApiService()
     private var users = mutableListOf<User>()
-    private var albums = mutableListOf<Album>()
-    private var photos = mutableListOf<Photo>()
+    private var photos = mutableMapOf<Int, MutableList<Photo>>()
 
     fun loadUsersFromApi(callback: (List<User>) -> Unit) {
         val disposable = apiService.getUsers()
@@ -32,8 +31,9 @@ object Repository {
                 }
             )
     }
-    
-    fun loadAlbumsAndPhotosFromApi(userId: Int, callback: (List<Photo>) -> Unit) {
+
+    fun loadPhotosFromApi(userId: Int, callback: (List<Photo>) -> Unit) {
+        photos[userId] = emptyList<Photo>().toMutableList()
         val disposable = loadAlbumsFromApiObservable(userId)
             .flatMap { albums -> loadPhotosFromApiObservable(albums) }
             .subscribeOn(Schedulers.io())
@@ -43,13 +43,13 @@ object Repository {
                     result.forEach {
                         Log.d("My_Repository", "Album: ${it.albumId}. Photo: ${it.id}")
                     }
-                    photos.addAll(result)
+                    photos[userId]!!.addAll(result)
                 },
                 { error ->
                     error.printStackTrace()
                 },
                 {
-                    callback(photos)
+                    callback(photos[userId]!!)
                 }
             )
     }
@@ -66,7 +66,6 @@ object Repository {
             .flatMap { album -> apiService.getPhotos(album.id) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-
 
     // TODO dispose combine disposable
 }
